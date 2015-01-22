@@ -12,6 +12,29 @@ Check `package.json` to see if all the details are fin, like versions of depende
 
 # Server Side
 
+## Socket.io logic
+To include `socket.io` in the app we use these statements in `server.js`. First we load express module and create our app instance. Then we load `http` module and create a server passing our app instance as argument. Next step is loading `socket.io` module and passing our http server as argument.
+
+	var express = require('express');
+	var app = express();
+	var http = require('http').Server(app);
+	var io = require('socket.io')(http);
+
+Sockets logic is contained inside `socket-logic.js` file and it's structure is as following.
+
+	exports = module.exports = function(io){
+	  io.sockets.on('connection', function (socket) {
+	    
+	    ...
+
+	  });
+	}
+
+Socket logic is loaded in the main `server.js` file with this statement:
+
+	var socketlogic = require('./socket-logic.js')(io);
+
+
 # Reference Material
 
 * [Node.js modules, require and export](http://openmymind.net/2012/2/3/Node-Require-and-Exports/) - Excellent article about `module.exports` in Node.js
