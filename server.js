@@ -15,9 +15,7 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
 // routing
-app.get('/', function (req, res) {
-	res.render('index');
-});
+require('./config/routes.js')(app);
 
 // this part is for heroku deployment. Pass the port as argument (won't work on heroku without it) or use default port 3000 (for localhost)
 var port = process.env.PORT || 3000;

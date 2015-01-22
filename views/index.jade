@@ -1,9 +1,8 @@
-doctype html
-html
-head
-	title Webapp to research competitive behaviour in Minority Games, a negative-sum-game 
-body
-	h1 Webapp to research competitive behaviour in Minority Games, a negative-sum-game
+extends layout
 
-	script(src="/socket.io/socket.io.js")
-	script(src="/js/app.js")
+block body
+	.container.container-fluid.text-center
+		div.row(style="margin-top:100px;")
+			a.btn.btn-primary(href="#") Classical Minority Game
+		div.row(style="margin-top:5px;")
+			a.btn.btn-primary(href="#") Realtime Minority Game

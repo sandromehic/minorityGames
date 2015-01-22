@@ -1,0 +1,14 @@
+html,body {
+	height:100%;
+	margin: 0px;
+}
+.container {
+	height:100%;
+}
+
+.vcenter {
+	height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
