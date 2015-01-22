@@ -4,12 +4,20 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+// load socket logic that handled all websocket events
+var socketlogic = require('./socket-logic.js')(io);
+
 // set view engine to jade and folder to /views
 app.set('views', './views');
 app.set('view engine', 'jade');
 
 // set public folder from which client side scripts will be loaded
 app.use(express.static(__dirname + '/public'));
+
+// routing
+app.get('/', function (req, res) {
+	res.render('index');
+});
 
 // this part is for heroku deployment. Pass the port as argument (won't work on heroku without it) or use default port 3000 (for localhost)
 var port = process.env.PORT || 3000;
