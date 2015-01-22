@@ -1,0 +1,24 @@
+{
+  "name": "minorityGames",
+  "version": "0.0.1",
+  "description": "Webapp to research competitive behaviour in Minority Games, a negative-sum-game ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandromehic/minorityGames.git"
+  },
+  "author": "sandro mehic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sandromehic/minorityGames/issues"
+  },
+  "homepage": "https://github.com/sandromehic/minorityGames",
+  "dependencies": {
+    "express": "^4.11.1",
+    "jade": "^1.9.1",
+    "socket.io": "^1.3.2"
+  }
+}

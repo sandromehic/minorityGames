@@ -10,6 +10,9 @@ To start developing new nodejs app we first need to create it and install variou
 
 Check `package.json` to see if all the details are fin, like versions of dependencies, name of the javascript file that acts as the server, etc.
 
+# Server Side
+
 # Reference Material
 
 * [Node.js modules, require and export](http://openmymind.net/2012/2/3/Node-Require-and-Exports/) - Excellent article about `module.exports` in Node.js
+* [Separating Node.js and Socket.io logic](http://stackoverflow.com/questions/23653617/socket-io-listen-events-in-separate-files-in-node-js) - How to separate Socket.io logic in another file and include it in server.js
