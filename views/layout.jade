@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app)
 head
 	title Webapp to research competitive behaviour in Minority Games, a negative-sum-game 
 	link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
@@ -8,5 +8,7 @@ head
 body
 	block body
 
+	script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js")
+	script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular-route.min.js")
 	script(src="/socket.io/socket.io.js")
 	script(src="/js/app.js")
