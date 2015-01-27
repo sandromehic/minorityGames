@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 // load socket logic that handled all websocket events
-var socketlogic = require('./socket-logic.js')(io);
+var socketlogic = require('./logic/socketlogic.js')(io);
 
 // set view engine to jade and folder to /views
 app.set('views', './views');

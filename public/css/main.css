@@ -13,3 +13,11 @@ html,body {
     vertical-align: middle;
     float: none;
 }
+
+.page-margins {
+	margin: 100px;
+}
+
+button {
+	margin:10px;
+}

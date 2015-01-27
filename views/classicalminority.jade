@@ -1,11 +1,5 @@
 extends layout
 
 block body
-	.container.container-fluid
-		.row
-			.col-sm-6.col-sm-offset-3.text-justify(style="margin-top:200px;")
-				p Benvenuto nella pagina del classico Minority Game. Il gioco è di natura competitiva e non ha soluzione ottimale, visto che non possono essere soddisfati più della metà dei giocatori allo stesso tempo. Ad ogni turno il giocatore deve prevedere l'andamento del grafico che rappresenta le decisioni della minoranza nei turni precedenti. Il giocatore accumula punti vincendo i singoli round, e vince un round se riesce prevedere con successo l'andamento del grafico. Inserisci un nome con quale verrai identificato.
-		.row
-			.col-sm-4.col-sm-offset-4
-				input(type="text" ng-model="user" ng-keypress="keypressedLogin($event)")
-				button.btn.btn-primary(ng-click="login()") Login
+	div(ng-app="classicalMinorityApp")
+		.container-fluid.page-margins(ng-view)

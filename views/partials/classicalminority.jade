@@ -1,0 +1,50 @@
+.row
+	h1 Classical minority game {{ user }}
+.row
+	button.btn.btn-primary(ng-click="ping()") Ping
+	input(type="text" ng-model="user")
+.row
+	.col-sm-12
+		h3 Benvenuto nella pagina del classico Minority Game. Il gioco è di natura competitiva e non ha soluzione ottimale, visto che non possono essere soddisfati più della metà dei giocatori allo stesso tempo. Ad ogni turno il giocatore deve prevedere l'andamento del grafico che rappresenta le decisioni della minoranza nei turni precedenti. Il giocatore accumula punti vincendo i singoli round, e vince un round se riesce prevedere con successo l'andamento del grafico.
+.row
+	//-
+		This row is composed of two columns, one for the graphics and another one for the neighbourhood history
+		The graphics will be rendered with svg as a single element with fixed width and height, while the history column will be divided in as many rows as there are neighbours and as many columns as we want to show in history
+	// graphics column
+	.col-sm-6(style="height: 500px; background: yellow")
+
+	// neighbourhood history column
+	.col-sm-6
+		.row
+			.col-sm-2(ng-repeat="dummy in dummydata") 
+				h1
+					span.label.label-default {{ dummy }}
+		.row
+			.col-sm-2(ng-repeat="dummy in dummydata") 
+				h1
+					span.label.label-default {{ dummy }}
+		.row
+			.col-sm-2(ng-repeat="dummy in dummydata") 
+				h1
+					span.label.label-default {{ dummy }}
+		.row
+			.col-sm-2(ng-repeat="dummy in dummydata") 
+				h1
+					span.label.label-default {{ dummy }}
+		.row
+			.col-sm-2(ng-repeat="dummy in dummydata") 
+				h1
+					span.label.label-default {{ dummy }}
+
+// Score to the left, decision making in center and timer on the right side
+.row
+	.col-sm-4.text-left
+		h1 Score: x (Rank y)
+	.col-sm-4.text-center
+		h1
+			button.btn.btn-lg.btn-success(ng-click="makeDecision('up')") 
+				h3 Su
+			button.btn.btn-lg.btn-danger(ng-click="makeDecision('down')") Giu'
+			button.btn.btn-lg.btn-warning(ng-click="makeDecision('boh')") Boh
+	.col-sm-4.text-right
+		h1 Timer: n 

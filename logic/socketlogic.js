@@ -34,5 +34,13 @@ exports = module.exports = function(io) {
 		socket.on('getNeighbors', function (data) {
 			console.log('user requested neighbors data!');
 		});
+
+
+
+		// ping for testing
+		socket.on('ping', function(data) {
+			console.log('recieved ping message from ' + data);
+			socket.emit('ping', data);
+		})
 	});
 }

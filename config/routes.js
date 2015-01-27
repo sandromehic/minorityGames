@@ -5,4 +5,8 @@ module.exports = function(app) {
     app.get('/classicalminority', function (req, res) {
     	res.render('classicalminority');
     });
+    app.get('/partials/:name', function(req, res) {
+		var name = req.params.name;
+		res.render('partials/' + name);
+	});
 };
