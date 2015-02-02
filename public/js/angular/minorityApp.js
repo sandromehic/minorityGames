@@ -1,0 +1,1 @@
+var minorityApp = angular.module('minorityApp', []);

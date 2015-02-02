@@ -76,7 +76,6 @@ function createRollingGraph(divname, width, height, n) {
 					.attr("cy", function (d) { 
 						return (y(d.value)); 
 					})
-					.style("fill", "orange")
 				// transitions are per-element so we need to apply it to the whole group
 				g
 					.attr("transform", null);

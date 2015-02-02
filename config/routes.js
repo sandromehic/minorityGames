@@ -12,15 +12,9 @@ module.exports = function(app) {
         res.render('login');
     });
 
-    app.get('/classicalminority', function (req, res) {
-    	res.render('classicalminority');
+    app.get('/admin', function (req, res) {
+        res.render('admin');
     });
-
-    app.get('/partials/:name', function(req, res) {
-		var name = req.params.name;
-		res.render('partials/' + name);
-	});
-
     // API
     app.post('/api/login', function (req, res) {
         if(req.body.name!='admin') {

@@ -9,33 +9,24 @@ exports = module.exports = function(io) {
 			console.log('a user disconnected');
 		});
 
-		// get graph, client can require graph information
-		// it should however all be sent on every new round
-		socket.on('getGraph', function (data) {
-			console.log('user requested graph data!');
+		// admin messages
+		socket.on('start', function (data) {
+			console.log('Received start the game signal!');
+			socket.broadcast.emit('start', 'Start the game!');
 		});
-
-		// get score (same as above)
-		socket.on('getScore', function (data) {
-			console.log('user requested score data!');
+		socket.on('stop', function (data) {
+			console.log('Received stop the game signal!');
+			socket.broadcast.emit('stop', 'Stop the game!');
 		});
-
-		// get rank (same as above)
-		socket.on('getRank', function (data) {
-			console.log('user requested rank data!');
+		socket.on('sendNewRound', function (data) {
+			console.log('Received new round signal from admin!' + data);
+			socket.broadcast.emit('newRound', data);
 		});
-
-		// get rank difference (same as above)
-		socket.on('getRankDifference', function (data) {
-			console.log('user requested rank difference data!');
+		// graph controll from admin
+		socket.on('sendNewPoint', function (data) {
+			console.log('Received new point from admin ' + data);
+			socket.broadcast.emit('graphNewPoint', data);
 		});
-
-		// get neighbors (same as above)
-		socket.on('getNeighbors', function (data) {
-			console.log('user requested neighbors data!');
-		});
-
-
 
 		// ping for testing
 		socket.on('ping', function(data) {

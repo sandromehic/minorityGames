@@ -1,21 +1,17 @@
-html,body {
-	height:100%;
-	margin: 0px;
-	font-family: sans-serif;
-}
-.container {
-	height:100%;
+.fixed-width-12 {
+	max-width: 1200px;
+	min-width: 1200px;
+	margin: 0 auto;
 }
 
-.vcenter {
-	height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
+.fixed-width-graph {
+	max-width: 600px;
+	min-width: 600px;
 }
 
-.page-margins {
-	margin: 100px;
+.fixed-width-history {
+	max-width: 600px;
+	min-width: 600px;
 }
 
 button {
