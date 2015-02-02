@@ -1,0 +1,10 @@
+extends layout
+
+block body
+	div(ng-app="loginApp")
+		.container.container-fluid.text-center
+			.jumbotron 
+				h1 Login page
+			.row(ng-controller="loginController")
+				input(type="text" ng-model="user.name" placeholder="Username" ng-keypress="keypressedLogin($event)")
+				button.btn.btn-primary(ng-click="loginUser()") Login

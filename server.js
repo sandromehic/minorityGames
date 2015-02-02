@@ -3,13 +3,23 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
 
 // load socket logic that handled all websocket events
 var socketlogic = require('./logic/socketlogic.js')(io);
 
 // set view engine to jade and folder to /views
-app.set('views', './views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+app.use(morgan('dev'));                                         // log every request to the console
+app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());                                     // parse application/json
+// app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
+app.use(cookieParser());
 
 // set public folder from which client side scripts will be loaded
 app.use(express.static(__dirname + '/public'));
