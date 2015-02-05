@@ -1,1 +1,1 @@
-var minorityApp = angular.module('minorityApp', []);
+var minorityApp = angular.module('minorityApp', ['ngCookies']);

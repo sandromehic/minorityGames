@@ -1,12 +1,21 @@
-function createRollingCircles(divname, w, h, n, r, d) {
+var colors = {
+	"up" : "#5cb85c",
+	"down" : "#d9534f",
+	"boh" : "#f0ad4e"
+};
+
+function createRollingCircles(divname, w, h, n, r, d, title) {
 	var svg = d3.select(divname)
 		.attr("width", w)
 		.attr("height", h);
+	var title = title;
+	appendLabel("title", svg, 50, 50, title, "black");
+
 	var data = [];
 	var key = 0;
 	if (d) {
 		d.forEach(function(element, index){
-			addCircle(element.color, true);
+			addCircle(colors[element], true);
 		});
 	}
 
@@ -34,11 +43,11 @@ function createRollingCircles(divname, w, h, n, r, d) {
 		  	// var offset = (w/(n * 2));
 		  	var offset = (w/(n * 2));
 		  	var	size = (w / n);
-		  	console.log(offset, size);
+		  	//console.log(offset, size);
 
 		  	// add new elements
 		  	if(notransition) {
-		  		console.log('no transition adding');
+		  		//console.log('no transition adding');
 		  		circles.enter().append("circle")
 					.attr("cx", function (d, i) {
 						// return (( (w/(n * 2)) + (w/ n) ) + i*(w / n));
@@ -75,6 +84,9 @@ function createRollingCircles(divname, w, h, n, r, d) {
 						});
 			}
 			//////////////////////////////////////////////////////////////////////////////
+			//update the title
+			svg.select("#title").remove();
+			appendLabel("title", svg, 50, 50, title, "white");
 		}
 
 	return {
@@ -94,4 +106,18 @@ function createRollingCircles(divname, w, h, n, r, d) {
 function co(lor) {   
 	return (lor += [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
   		&& (lor.length == 6) ?  lor : co(lor); 
+};
+
+function appendLabel(labelname, svg, x, y, content, clr) {
+	svg.append("text")
+		.attr("id", labelname)
+		.attr("text-anchor", "middle")
+		.attr("alignment-baseline", "middle")
+		.attr("x", x)
+		.attr("y", y)
+		.text(content)
+		.attr("font-family", "sans-serif")
+		.attr("font-size", "20px")
+		.attr("font-weight", "bold")
+		.style("fill", clr);
 };

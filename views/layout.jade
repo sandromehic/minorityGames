@@ -5,13 +5,14 @@ head
 	meta(name="viewport" content="width=device-width, initial-scale=1")
 	// html5 mode base
 	base(href="/")
-	link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+	link(rel="stylesheet" href="/css/bootstrap.css")
 	link(rel="stylesheet" href="/css/main.css")
 
 body
 	block body
 
 	script(src="/js/lib/angular.js")
+	script(src="/js/lib/angular-cookies.js")
 	script(src="/js/lib/d3.js")
 	script(src="/socket.io/socket.io.js")
 	script(src="/js/angular/loginApp.js")
@@ -20,6 +21,7 @@ body
 	script(src="/js/angular/controllers/minorityController.js")
 	script(src="/js/angular/controllers/adminController.js")
 	script(src="/js/angular/controllers/graphController.js")
+	script(src="/js/angular/controllers/neighbourhoodController.js")
 	script(src="/js/rollingCircles.js")
 	script(src="/js/rollingGraph.js")
 	script(src="/js/utils.js")

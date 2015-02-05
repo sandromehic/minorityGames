@@ -7,6 +7,9 @@ block body
 				h1 Ciao #{username} {{ user }}
 				p Benvenuto nella pagina del classico Minority Game. Il gioco è di natura competitiva e non ha soluzione ottimale, visto che non possono essere soddisfati più della metà dei giocatori allo stesso tempo. Ad ogni turno il giocatore deve prevedere l'andamento del grafico che rappresenta le decisioni della minoranza nei turni precedenti. Il giocatore accumula punti vincendo i singoli round, e vince un round se riesce prevedere con successo l'andamento del grafico.
 			.row
+				button.btn(ng-click="startRounds()") Send Rounds
+				button.btn(ng-click="stopRounds()") Stop Rounds
+			.row
 				//-
 					This row is composed of two columns, one for the graphics and another one for the neighbourhood history
 					The graphics will be rendered with svg as a single element with fixed width and height, while the history column will be divided in as many rows as there are neighbours and as many columns as we want to show in history
@@ -15,7 +18,8 @@ block body
 					svg#graph
 
 				// neighbourhood history column
-				.col-sm-6.fixed-width-history(style="height: 400px; background: steelblue")
+				div#neighbourhood.col-sm-6.fixed-width-history
+
 
 			// Score to the left, decision making in center and timer on the right side
 			.row
@@ -28,4 +32,3 @@ block body
 						button.btn.btn-lg.btn-warning(ng-click="makeDecision('boh')") Boh
 				.col-sm-4.text-right
 					h1 Timer: {{ timer }} 
-					button(ng-click="testint()") Testint

@@ -62,7 +62,7 @@ function createRollingGraph(divname, width, height, n) {
 
 			// update path
 			path.attr("d", line(data));
-			console.log(line(data));
+			//console.log(line(data));
 
 			// default group to transition
 			var nextg = g;

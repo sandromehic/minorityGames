@@ -1,8 +1,10 @@
 minorityApp.controller('graphController', function ($scope, socket) {
-	var rollingGraph = createRollingGraph("#graph", 600, 400, 6);
+	var rollingGraph = createRollingGraph("#graph", 600, 500, 6);
+	var point = 0;
 
 	socket.on('graphNewPoint', function (data) {
-		rollingGraph.addPoint(data);
+		point += data;
+		rollingGraph.addPoint(point);
 	});
 	
 	// ping for testing purpose!
