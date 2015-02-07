@@ -9,7 +9,7 @@ function include(arr,obj) {
     return (arr.indexOf(obj) != -1);
 };
 
-function spliceAndDice(data, mainuser) {
+function spliceAndDice(data, mainuserId) {
 	var len = data.length;
 	var rtndata = [];
 	if(len <= 5) {
@@ -18,7 +18,7 @@ function spliceAndDice(data, mainuser) {
 	else {
 		var idx;
 		for(var i = 0; i < len; i++) {
-			if(data[i].username == mainuser) {
+			if(data[i].identifier == mainuserId) {
 				idx = i;
 			}
 		}
@@ -42,8 +42,8 @@ var colors = {
 	"boh" : "#f0ad4e"
 };
 
-function d3Neighbourhood(data, mainuser) {
-	console.log('inside d3neigh function!');
+function d3Neighbourhood(data, mainuserId) {
+	// console.log('inside d3neigh function!');
 	// console.dir(data);
 	// 		"identifier" : 0,
 	// 	"username" : "tizio",
@@ -53,7 +53,7 @@ function d3Neighbourhood(data, mainuser) {
 
 	// console.dir(data);
 	var modData;
-	modData = spliceAndDice(data, mainuser);
+	modData = spliceAndDice(data, mainuserId);
 
 	var neigh = d3.select("#neighbourhood");
 
@@ -86,22 +86,23 @@ function d3Neighbourhood(data, mainuser) {
 	// console.log('enter selection', newones);
 	// console.log('is empyt newones?', newones.empty());
 
-	console.log('Enter selection!');
+	// exit selection
+	var exitones = neighbour.exit();
+	exitones.each( function (d, i) {
+		// console.log('deleting', this.id);
+		delete rollingCircles[this.id];
+	});
+	exitones.remove();
+
+	// console.log('Enter selection!');
 	newones.each( function (d, i) {
 		// console.log('Inside newones element');
 		// console.log('d & i', d, i);
 		// console.log(this);
 		var r = 40;
-		if(this.__data__.username == mainuser) { r = 45; }
+		if(this.__data__.identifier == mainuserId) { r = 45; }
 		rollingCircles[this.id] = createRollingCircles(this, 600, 100, 6, r, this.__data__.history, this.__data__.username);
+		// console.dir(this);
 		// console.log(rollingCircles);
 	});
-
-	// exit selection
-	var exitones = neighbour.exit();
-	exitones.each( function (d, i) {
-		console.log('deleting', this.id);
-		delete rollingCircles[this.id];
-	});
-	exitones.remove();
 };

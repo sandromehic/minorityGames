@@ -1,6 +1,10 @@
 minorityApp.controller('adminController', function ($scope, socket) {
 	$scope.startRounds = function () {
-		socket.emit('startRounds', true);
+		var data = {};
+		data.high = 10;
+		data.low = 5;
+		data.rounds = 24;
+		socket.emit('startRounds', data);
 	}
 	$scope.stopRounds = function () {
 		socket.emit('stopRounds', true);

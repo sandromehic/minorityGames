@@ -12,7 +12,7 @@ function createRollingGraph(divname, width, height, n) {
 
 	var data = [];
 	var key = 0;
-	var lower = 0;
+	var lower = -1;
 	var upper = 1;
 
 	var x = rescaleAxis(0, n-1, 0, w);
@@ -35,9 +35,40 @@ function createRollingGraph(divname, width, height, n) {
 		.attr("class", "line")
 		.attr("d", line(data));
 
+	// needed functions
+	function translateWhole(newData, g) {
+		var oldCenter = (upper + lower) / 2;	
+		g.transition()
+	  	  	.duration(1000)
+	  	  	.ease("linear")
+	  	  	.attr("transform", "translate(" + x(-1) + "," + (y(oldCenter) - y(newData)) + ")")
+	  	  	.each("end", updateYAxis(newData))
+	};
+
+	var updateYAxis = function(newData) {
+	  	upper = newData + 1;
+	  	lower = newData - 1;
+	  	y = rescaleAxis(lower, upper, h, 0);
+	  	yaxis.call(d3.svg.axis().scale(y).orient("right"));
+	};
+
+	function rescaleAxis(d1, d2, r1, r2) {
+	    return d3.scale.linear()
+	      .domain([d1, d2])
+	      .range([r1, r2]);
+	};
+
+	function reset() {
+		updateYAxis(0);
+		var circles = g.selectAll("circle")
+			.data([]);
+		circles.exit().remove();
+	};
+
 	return {
 		name: divname,
 		data: data,
+		updateYAxis: updateYAxis,
 		addPoint: function (newPoint) {
 			data.push({
 				"key" : key++,
@@ -92,27 +123,5 @@ function createRollingGraph(divname, width, height, n) {
 			// exit selection
 			circles.exit().remove();
 		}
-	};
-	// needed functions
-	function translateWhole(newData, g) {
-		var oldCenter = (upper + lower) / 2;	
-		g.transition()
-	  	  	.duration(1000)
-	  	  	.ease("linear")
-	  	  	.attr("transform", "translate(" + x(-1) + "," + (y(oldCenter) - y(newData)) + ")")
-	  	  	.each("end", updateYAxis(newData))
-	};
-
-	function updateYAxis(newData) {
-	  	upper = newData + 1;
-	  	lower = newData - 1;
-	  	y = rescaleAxis(lower, upper, h, 0);
-	  	yaxis.call(d3.svg.axis().scale(y).orient("right"));
-	};
-
-	function rescaleAxis(d1, d2, r1, r2) {
-	    return d3.scale.linear()
-	      .domain([d1, d2])
-	      .range([r1, r2]);
 	};
 };

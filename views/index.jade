@@ -3,12 +3,9 @@ extends layout
 block body
 	div(ng-app="minorityApp" ng-controller="minorityController")
 		.container-fluid.text-center.fixed-width-12
-			.row.jumbotron
-				h1 Ciao #{username} {{ user }}
-				p Benvenuto nella pagina del classico Minority Game. Il gioco è di natura competitiva e non ha soluzione ottimale, visto che non possono essere soddisfati più della metà dei giocatori allo stesso tempo. Ad ogni turno il giocatore deve prevedere l'andamento del grafico che rappresenta le decisioni della minoranza nei turni precedenti. Il giocatore accumula punti vincendo i singoli round, e vince un round se riesce prevedere con successo l'andamento del grafico.
 			.row
-				button.btn(ng-click="startRounds()") Send Rounds
-				button.btn(ng-click="stopRounds()") Stop Rounds
+				h1
+					.label.label-success Minority Game
 			.row
 				//-
 					This row is composed of two columns, one for the graphics and another one for the neighbourhood history
@@ -24,11 +21,16 @@ block body
 			// Score to the left, decision making in center and timer on the right side
 			.row
 				.col-sm-4.text-left
-					h1 Score: x (Rank y)
+					.large Punteggio: {{ score }} 
+					.large (y posto)
 				.col-sm-4.text-center
 					h1
-						button.btn.btn-lg.btn-success(ng-click="makeDecision('up')") Su
-						button.btn.btn-lg.btn-danger(ng-click="makeDecision('down')") Giu'
-						button.btn.btn-lg.btn-warning(ng-click="makeDecision('boh')") Boh
+						button.btn.btn-lg.btn-success(ng-class="upbuttonClass" ng-click="makeDecision('up')") Su
+						button.btn.btn-lg.btn-danger(ng-class="downbuttonClass" ng-click="makeDecision('down')") Giu'
+						button.btn.btn-lg.btn-warning(ng-class="bohbuttonClass" ng-click="makeDecision('boh')") Boh
 				.col-sm-4.text-right
-					h1 Timer: {{ timer }} 
+					.large Turno: {{ round }} 
+					.large Prossimo turno: {{ timer }} 
+			.row.jumbotron
+				// h1 Ciao #{username} {{ user }}
+				p Benvenuto nella pagina del classico Minority Game. Il gioco è di natura competitiva e non ha soluzione ottimale, visto che non possono essere soddisfati più della metà dei giocatori allo stesso tempo. Ad ogni turno il giocatore deve prevedere l'andamento del grafico che rappresenta le decisioni della minoranza nei turni precedenti. Il giocatore accumula punti vincendo i singoli round, e vince un round se riesce prevedere con successo l'andamento del grafico.
