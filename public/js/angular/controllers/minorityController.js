@@ -35,7 +35,7 @@ minorityApp.controller('minorityController',
 			// data = usernames array
 			d3Neighbourhood(data, userId);
 			// update the score
-			$scope.updateScore(data);
+			$scope.updateScoreAndRank(data);
 		});
 
 		socket.on('graphInfo', function (data) {
@@ -46,12 +46,14 @@ minorityApp.controller('minorityController',
 			userId = data;
 		});
 
-		$scope.updateScore = function (data) {
+		$scope.updateScoreAndRank = function (data) {
 			data.forEach(function(element, index){
 				if(element.identifier == userId) {
 					$scope.score = element.score;
+					$scope.rank = element.rank;
 				}
 			});
+			$scope.rankTotal = data.length;
 		};
 
 		$scope.changeCenter = function () {

@@ -34,7 +34,7 @@ exports.calculateDecisions = function (usernames) {
 function inside(arr, element) {
 	for(var i = 0, n = arr.length; i < n; i++) {
 		if(arr[i] == element) {
-			console.log('element equals', element, i);
+			// console.log('element equals', element, i);
 			return true;
 		}
 	}

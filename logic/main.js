@@ -18,6 +18,7 @@ function resetValues() {
 		element.decision = "boh";
 		element.history = [];
 		element.score = 0;
+		element.rank = 0;
 	});
 };
 
@@ -86,6 +87,7 @@ function calculateLastRound() {
 	obj.point = calculateMinority();
 	//update scores
 	updateUsernameScores(obj.point);
+	updateUsernameRanks();
 
 	graph.value += obj.point;
 	graph.arr.push(graph.value);
@@ -129,7 +131,25 @@ function updateUsernameScores(value) {
 			element.score += sign(value);
 		}
 	});
-}
+};
+
+function updateUsernameRanks() {
+	var orderedUsers = [];
+	for(var i=0, n=usernames.length; i<n; i++) {
+		console.log('username i', usernames[i]);
+		orderedUsers.push([usernames[i].identifier, usernames[i].score]);
+	}
+	orderedUsers.sort(function(c, d){return d[1]-c[1]});
+	for(var i=0, n=usernames.length; i<n; i++) {
+		for(var j=0, m=orderedUsers.length; j<m; j++) {
+			if(orderedUsers[j][0] == usernames[i].identifier) { 
+				usernames[i].rank = j+1;
+			}
+		}
+	}
+	console.log('Ordered users array');
+	console.dir(usernames);
+};
 
 function sign(x){
 	if (x === 0) { return 0; }
@@ -218,7 +238,7 @@ exports.launch = function(io) {
 
 			// each time we add a human user we also add one algorithmic player
 			jalgo.populate(usernames, 1);
-			console.dir(usernames);
+			// console.dir(usernames);
 		});
 
 		// user sends a decision
@@ -255,5 +275,5 @@ exports.launch = function(io) {
 
 // ALGORITHMIC PLAYERS SETUP
 // jalgo.puppa();
-jalgo.populate(usernames, 5);
+jalgo.populate(usernames, 3);
 console.log(usernames);
