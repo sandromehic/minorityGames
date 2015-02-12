@@ -119,7 +119,7 @@ function d3Neighbourhood(data, mainuserId) {
 		// console.log('Inside newones element');
 		// console.log('d & i', d, i);
 		// console.log(this);
-		var r = 40;
+		var r = 35;
 		if(this.__data__.identifier == mainuserId) { r = 45; }
 		rollingCircles[this.id] = createRollingCircles(this, 600, 100, 6, r, this.__data__.history, this.__data__.username);
 		// console.dir(this);

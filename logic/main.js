@@ -129,7 +129,9 @@ exports.launch = function(io) {
 					"identifier" : socket.identifier, 
 					"username" : username,
 					"decision" : "boh",
-					"history" : []
+					"history" : [],
+					"score" : 0,
+					"rank" : usernames.length
 				});		
 			}
 			socket.emit('userId', socket.identifier);
@@ -141,7 +143,7 @@ exports.launch = function(io) {
 			res.graph = graph;
 			res.usernames = usernames;
 			res.newguyID = socket.identifier;
-			io.sockets.emit('updateState', res);
+			socket.emit('updateState', res);
 		});
 
 		// user sends a decision
@@ -157,9 +159,9 @@ exports.launch = function(io) {
 		// socket.on('getNeighInfo', function (data) {
 		// 	socket.emit('newNeighbourhood', usernames)
 		// });
-		// socket.on('getRoundTime', function (data) {
-		// 	socket.emit('newRound', getRemainingRoundTime());
-		// })
+		socket.on('getRoundTime', function (data) {
+			socket.emit('newRoundTimer', getRemainingRoundTime());
+		})
 		socket.on('getId', function (data) {
 			socket.emit('userId', socket.identifier);
 		});
@@ -181,6 +183,7 @@ exports.launch = function(io) {
 			jalgo.spopulate(usernames);
 			// add new number of jalgos
 			jalgo.populate(usernames, data.jalgos);
+			usernames = shuffle(usernames);
 			startRounds(socket, data.high, data.low, data.rounds);
 		});
 		socket.on('stopRounds', function (data) {
@@ -295,4 +298,23 @@ function getRoundsDuration(highDuration, lowDuration, rounds) {
 function getRemainingRoundTime() {
 	var milis = (refreshTime * 1000) - ( (new Date()).getTime() - roundStartedAt );
 	return Math.floor( milis / 1000 );
+};
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 };

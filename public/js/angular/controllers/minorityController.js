@@ -24,12 +24,27 @@ minorityApp.controller('minorityController',
 				d3Neighbourhood(data.usernames, userId);
 				$scope.round=data.graph.arr.length;
 				$scope.updateScoreAndRank(data.usernames);
+				socket.emit('getRoundTime', true);
 			}
-			else {
-				//we just need to update the rank and total users
-				$scope.updateScoreAndRank(data.usernames);
-			}
+			// else {
+			// 	//we just need to update the rank and total users
+			// 	$scope.updateScoreAndRank(data.usernames);
+			// }
 
+		});
+
+		socket.on('newRoundTimer', function (data) {
+			// timer control
+			$scope.timer = data > 0 ? data : 0;
+			$interval.cancel(endRound);
+			endRound = $interval(function() {
+				if ($scope.timer > 0) {
+					$scope.timer -= 1;
+				}
+				else {
+					$interval.cancel(endRound);
+				}			
+			}, 1000, data);
 		});
 
 		socket.on('newRound', function (data) {
@@ -60,6 +75,8 @@ minorityApp.controller('minorityController',
 		});
 
 		$scope.updateScoreAndRank = function (data) {
+			// console.log('inside updateScoreAndRank');
+			// console.dir(data);
 			data.forEach(function(element, index){
 				if(element.identifier == userId) {
 					$scope.score = element.score;

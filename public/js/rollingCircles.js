@@ -19,6 +19,14 @@ function createRollingCircles(divname, w, h, n, r, d, title) {
   	var	size = (w / n);
   	//console.log(offset, size);
 
+  	// add the white balls of fire
+  	for (var i=0; i<n; i++) {
+  		data.push({
+  			"key" : key++,
+  			"color" : "white"
+  		});
+  	}
+
 	if (d) {
 		d.forEach(function(element, index){
 			data.push({
@@ -34,7 +42,7 @@ function createRollingCircles(divname, w, h, n, r, d, title) {
 		// console.log('calling drawcircles');
 		drawCircles(svg, data, w, h, n, r);
 		if(d[0] != null) {
-			appendLabel("title", svg, 50, 50, title, "white");
+			appendLabel("title", svg, 50, 50, title, "black");
 		}
 	}
 
@@ -101,7 +109,7 @@ function createRollingCircles(divname, w, h, n, r, d, title) {
 			//////////////////////////////////////////////////////////////////////////////
 			//update the title
 			svg.select("#title").remove();
-			appendLabel("title", svg, 50, 50, title, "white");
+			appendLabel("title", svg, 50, 50, title, "black");
 		}
 
 	return {
