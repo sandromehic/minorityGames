@@ -5,13 +5,13 @@ block body
 		.container-fluid.text-center.fixed-width-12
 			.row
 				h1
-					.label.label-success Minority Game
+					.label.label-default Minority Game
 			.row
 				//-
 					This row is composed of two columns, one for the graphics and another one for the neighbourhood history
 					The graphics will be rendered with svg as a single element with fixed width and height, while the history column will be divided in as many rows as there are neighbours and as many columns as we want to show in history
 				// graphics column
-				.col-sm-6.fixed-width-graph(ng-controller="graphController")
+				.col-sm-6.fixed-width-graph
 					svg#graph
 
 				// neighbourhood history column

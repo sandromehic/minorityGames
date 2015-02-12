@@ -69,6 +69,7 @@ function createRollingGraph(divname, width, height, n) {
 		name: divname,
 		data: data,
 		updateYAxis: updateYAxis,
+		reset: reset,
 		addPoint: function (newPoint) {
 			data.push({
 				"key" : key++,

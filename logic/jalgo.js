@@ -2,7 +2,6 @@
 // NAMES
 // ["Jack", "Jacob", "James", "Jimmy", "Jarvis", "Jason", "Jasper", "Jed", "Jeffrey", "Jeremiah", "Jeremy", "Jerome", "Jesse", "John", "Jonathan", "Joseph", "Joey", "Joe", "Joshua", "Justin", "Kane", "Keene", "Keegan", "Keaton", "Keith", "Kelsey", "Kelvin", "Kendall", "Kendrick", "Kenneth", "Ken", "Kent", "Kenway", "Kenyon", "Kerry", "Kerwin", "Kevin", "Kiefer", "Kilby", "Kilian", "Kim", "Kimball", "Kingsley", "Kirby", "Kirk", "Kit", "Kody", "Konrad", "Kurt", "Kyle", "Lambert", "Lamont", "Lancelot", "Landon", "Landry", "Lane", "Lars", "Laurence", "Lee", "Leith"]
 
-
 var exports = module.exports = {};
 
 var names = ["Jack", "Jacob", "James", "Jimmy", "Jarvis", "Jason", "Jasper", "Jed", "Jeffrey", "Jeremiah", "Jeremy", "Jerome", "Jesse", "John", "Jonathan", "Joseph", "Joey", "Joe", "Joshua", "Justin", "Kane", "Keene", "Keegan", "Keaton", "Keith", "Kelsey", "Kelvin", "Kendall", "Kendrick", "Kenneth", "Ken", "Kent", "Kenway", "Kenyon", "Kerry", "Kerwin", "Kevin", "Kiefer", "Kilby", "Kilian", "Kim", "Kimball", "Kingsley", "Kirby", "Kirk", "Kit", "Kody", "Konrad", "Kurt", "Kyle", "Lambert", "Lamont", "Lancelot", "Landon", "Landry", "Lane", "Lars", "Laurence", "Lee", "Leith"];
@@ -21,6 +20,24 @@ exports.populate = function(usernames, quan) {
 		});
 		localID.push(ind);
 	}
+};
+
+exports.spopulate = function(usernames) {	
+	console.log('cleaning up usernames array of jalgos...');
+	var removeID = [];
+	for(var i=0, n=usernames.length; i<n; i++) {
+		if(inside(localID, usernames[i].identifier)) {
+			removeID.push(i);
+		}
+	}
+	for(var i=removeID.length-1; i>=0; i--) {
+		usernames.splice(removeID[i],1);
+	}
+	console.log('done with removing jalgos from usernames array');
+	console.dir(usernames);
+	// reset values
+	currentIndex = 0;
+	localID = [];
 };
 
 exports.calculateDecisions = function (usernames) {
@@ -45,4 +62,4 @@ function getRandomDecision() {
 	var rnd = Math.random();
 	if (rnd < 0.5) { return "down"; }
 	else { return "up"; }
-}
+};

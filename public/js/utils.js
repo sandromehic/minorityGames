@@ -1,45 +1,60 @@
-// function that returns random hex color
-function co(lor) {   
-	return (lor += [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
-  		&& (lor.length == 6) ?  lor : co(lor); 
+var rollingCircles = {};
+var colors = {
+	"up" : "#5cb85c",
+	"down" : "#d9534f",
+	"boh" : "#f0ad4e"
 };
 
-// returns true if obj is inside arr
-function include(arr,obj) {
-    return (arr.indexOf(obj) != -1);
+var localNeigh = [];
+
+function constructNeigh(usernames, mainuserId) {
+
+};
+
+function updateNeigh(usernames, mainuserId, newguyId) {
+
 };
 
 function spliceAndDice(data, mainuserId) {
 	var len = data.length;
+	// console.log('inside spliceAndDice:');
+	// console.log('mainuserId', mainuserId);
+	// console.log('data');
+	// console.dir(data);
 	var rtndata = [];
-	if(len <= 5) {
-		return data;
-	}
-	else {
+	if(len > 5) {
 		var idx;
 		for(var i = 0; i < len; i++) {
 			if(data[i].identifier == mainuserId) {
 				idx = i;
 			}
 		}
+		console.log('IDX', idx);
 		// check if user index + 2 >= lenght of the array
+		console.log('data length', len);
 		if ( (idx+2) >= len) {
 			// neighbourhood would overflow;
 			rtndata = data.slice(idx-2, len);
+			console.log('slice from slice and dice!');
+			console.dir(data.slice(idx-2, len));
 			for (var i = rtndata.length, j = 0; i < 5; i++) {
 				rtndata.push(data[j]);
 				j++;
 			}
 		}
+		else if ((idx-2) < 0) {
+			rtndata = data.slice(0, 5);
+		}
+		else {
+			// neighbourhood would not overflow so give it a slice -2 to +2
+			rtndata = data.slice(idx-2, idx+3);
+		}
+		console.log('return data from slice and dice:');
+		console.dir(rtndata);
 		return rtndata;
 	}
-};
 
-var rollingCircles = {};
-var colors = {
-	"up" : "#5cb85c",
-	"down" : "#d9534f",
-	"boh" : "#f0ad4e"
+	return data;
 };
 
 function d3Neighbourhood(data, mainuserId) {
@@ -52,14 +67,19 @@ function d3Neighbourhood(data, mainuserId) {
 	// },
 
 	// console.dir(data);
+	// console.dir(mainuserId);
 	var modData;
 	modData = spliceAndDice(data, mainuserId);
+	// console.log('Modified data inside d3Neighbourhood!');
+	// console.dir(modData);
 
 	var neigh = d3.select("#neighbourhood");
 
 	var neighbour = neigh.selectAll("svg")
 		.data(modData, function(d) { return d.identifier; });
 
+	// console.log('neighbour inside d3Neighbourhood');
+	// console.dir(neighbour);
 	// update selection
 	// console.log('Update selection!');
 	neighbour.each( function (d, i) {
@@ -105,4 +125,15 @@ function d3Neighbourhood(data, mainuserId) {
 		// console.dir(this);
 		// console.log(rollingCircles);
 	});
+};
+
+// function that returns random hex color
+function co(lor) {   
+	return (lor += [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
+  		&& (lor.length == 6) ?  lor : co(lor); 
+};
+
+// returns true if obj is inside arr
+function include(arr,obj) {
+    return (arr.indexOf(obj) != -1);
 };

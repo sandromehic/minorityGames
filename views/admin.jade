@@ -5,6 +5,20 @@ block body
 		.container(ng-controller="adminController")
 			.row
 				h1 Admin Page
+			.form-horizontal
+				.form-group
+					label.col-sm-2.text-right Numero di round
+					input(type="text" ng-model="nrounds")
+				.form-group
+					label.col-sm-2.text-right High Duration
+					input(type="text" ng-model="hduration")
+				.form-group
+					label.col-sm-2.text-right Low Duration
+					input(type="text" ng-model="lduration")
+				.form-group
+					label.col-sm-2.text-right Numero di Jalgos
+					input(type="text" ng-model="jalgos")
+
 			.row
 				button.btn.btn-primary(ng-click="startRounds()") Start rounds
 				button.btn.btn-danger(ng-click="stopRounds()") Stop rounds
