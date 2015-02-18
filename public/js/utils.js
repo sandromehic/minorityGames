@@ -27,34 +27,47 @@ function spliceAndDice(data, mainuserId) {
 		for(var i = 0; i < len; i++) {
 			if(data[i].identifier == mainuserId) {
 				idx = i;
+				rtndata.push(data[i]);
 			}
+		}
+		for(var i=(idx+1); i<len; i++) {
+			if(rtndata.length>=5) break;
+			rtndata.push(data[i]);
+		}
+		for(var i=0; i<len; i++) {
+			if(rtndata.length>=5) break;
+			rtndata.push(data[i]);
 		}
 		console.log('IDX', idx);
 		// check if user index + 2 >= lenght of the array
 		console.log('data length', len);
-		if ( (idx+2) >= len) {
-			// neighbourhood would overflow;
-			rtndata = data.slice(idx-2, len);
-			console.log('slice from slice and dice!');
-			console.dir(data.slice(idx-2, len));
-			for (var i = rtndata.length, j = 0; i < 5; i++) {
-				rtndata.push(data[j]);
-				j++;
-			}
-		}
-		else if ((idx-2) < 0) {
-			rtndata = data.slice(0, 5);
-		}
-		else {
-			// neighbourhood would not overflow so give it a slice -2 to +2
-			rtndata = data.slice(idx-2, idx+3);
-		}
+		console.log('rtndata length', rtndata.length);
+
+		// if ( (idx+2) >= len) {
+		// 	// neighbourhood would overflow;
+		// 	rtndata = data.slice(idx-2, len);
+		// 	console.log('slice from slice and dice!');
+		// 	console.dir(data.slice(idx-2, len));
+		// 	for (var i = rtndata.length, j = 0; i < 5; i++) {
+		// 		rtndata.push(data[j]);
+		// 		j++;
+		// 	}
+		// }
+		// else if ((idx-2) < 0) {
+		// 	rtndata = data.slice(0, 5);
+		// }
+		// else {
+		// 	// neighbourhood would not overflow so give it a slice -2 to +2
+		// 	rtndata = data.slice(idx-2, idx+3);
+		// }
 		console.log('return data from slice and dice:');
 		console.dir(rtndata);
 		return rtndata;
 	}
 
-	return data;
+	else {
+		return data;
+	}
 };
 
 function d3Neighbourhood(data, mainuserId) {
