@@ -1,6 +1,6 @@
 var util = require('util');
 var jalgo = require('./jalgo.js');
-var db = require('./database.js');
+// var db = require('./database.js');
 
 exports = module.exports = {};
 
