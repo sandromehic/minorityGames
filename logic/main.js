@@ -61,7 +61,7 @@ function sendNewData(socket, time) {
 	// socket.broadcast.emit('roundInfo', graph.arr.length);
 	// socket.broadcast.emit('newNeighbourhood', data.usernames);
 	data.time = time;
-	db.saveRound(graph, usernames);
+	// db.saveRound(graph, usernames);
 	socket.broadcast.emit('newRound', data);
 };
 
