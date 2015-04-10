@@ -89,6 +89,14 @@ minorityApp.controller('minorityController',
 		$scope.makeDecision = function (data) {
 			$scope.decision = data;
 			socket.emit('decision', data);
+			$scope.upbuttonClass = "";
+			$scope.downbuttonClass = "";
+			if (data=='up') {
+				$scope.upbuttonClass = "btn-lg";
+			}
+			if (data=='down') {
+				$scope.downbuttonClass = "btn-lg";
+			}
 		};
 
 		$scope.drawGraph = function (graph) {
