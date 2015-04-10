@@ -50,7 +50,9 @@ function startRounds(socket, highDuration, lowDuration, rounds) {
 	graph.session = generateUserId();
 	socket.broadcast.emit('reset', graph);
 	var r = getRoundsDuration(highDuration, lowDuration, rounds);
-	startIntervals(socket, r);
+	setTimeout(function() {
+		startIntervals(socket, r);
+	}, 5000);
 };
 
 // send new Data to clients and initialize new round
