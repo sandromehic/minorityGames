@@ -51,8 +51,9 @@ minorityApp.controller('minorityController',
 			console.log('received new round signal!');
 			
 			// add the point to the graph
+			color = $scope.getColor(point, data.graph.value);
 			point = data.graph.value;
-			rollingGraph.addPoint(point);
+			rollingGraph.addPoint(point, color);
 
 			// update neighbourhood
 			console.log('updating neighbourhood!');
@@ -108,9 +109,18 @@ minorityApp.controller('minorityController',
 				pts = pts.slice( (pts.length-6), pts.length );
 			}
 			// console.dir(pts);
+			previous = 0;
 			pts.forEach(function(element, index){
-				rollingGraph.addPoint(element);
+				color = $scope.getColor(previous, element);
+				rollingGraph.addPoint(element, color);
+				previous = element;
 			});
+		};
+
+		$scope.getColor = function (previous, current) {
+			if (previous<current) { color = "#5cb85c"; }
+			else { color = "#d9534f"; }
+			return color;
 		};
 
 		// initialize default values and send 'add user' event to server

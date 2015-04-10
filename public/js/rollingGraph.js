@@ -70,10 +70,11 @@ function createRollingGraph(divname, width, height, n) {
 		data: data,
 		updateYAxis: updateYAxis,
 		reset: reset,
-		addPoint: function (newPoint) {
+		addPoint: function (newPoint, color) {
 			data.push({
 				"key" : key++,
-				"value" : newPoint
+				"value" : newPoint,
+				"color" : color
 			});
 
 			var circles = g.selectAll("circle")
@@ -90,7 +91,7 @@ function createRollingGraph(divname, width, height, n) {
 				.attr("r", function (d) { 
 					return 10; 
 				})
-				.style("fill", function (d) { return 'steelblue'; });
+				.style("fill", function (d) { return d.color; });
 
 			// update path
 			path.attr("d", line(data));
