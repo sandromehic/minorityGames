@@ -218,10 +218,10 @@ function calculateMinority() {
 	});
 	var returnValue = -(( up + (- down) ) / usernames.length);
 	// console.log('Return value of the calculateMinority:', returnValue);
-	return returnValue;
-	// if(up > down) { return (-0.2); 	}
-	// else if(up == down) { return 0; }
-	// else { return (0.2); }
+	// return returnValue;
+	if(up > down) { return (-0.2); 	}
+	else if(up == down) { return 0; }
+	else { return (0.2); }
 };
 
 function updateUsernameScores(value) {
