@@ -47,6 +47,11 @@ minorityApp.controller('minorityController',
 			}, 1000, data);
 		});
 
+		socket.on('reset', function (data) {
+			resetRollingCircles();
+			resetRollingGraph(rollingGraph);
+		});
+
 		socket.on('newRound', function (data) {
 			console.log('received new round signal!');
 			

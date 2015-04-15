@@ -72,7 +72,7 @@ function calculateLastRound() {
 	var obj = {};
 
 	// calculate decisions for algorithmic players
-	jalgo.calculateDecisions(usernames);
+	jalgo.calculateDecisions(usernames, graph);
 
 	var point = calculateMinority();
 	graph.value += point;

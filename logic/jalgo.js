@@ -8,6 +8,9 @@ var names = ["Jack", "Jacob", "James", "Jimmy", "Jarvis", "Jason", "Jasper", "Je
 // save all the ids of algorithmic players
 var localID = [];
 var currentIndex = 0;
+var desc = ["down", "up"];
+
+var jalgos = [];
 
 exports.populate = function(usernames, quan) {
 	var ind;
@@ -18,8 +21,13 @@ exports.populate = function(usernames, quan) {
 			"username" : names[currentIndex],
 			"history" : []
 		});
+		var newJalgo = new Jalgo(ind, 3, 2);
+		newJalgo.generateStrategies();
+		jalgos.push(newJalgo);
 		localID.push(ind);
 	}
+	// console.log('Generated these jalgos:');
+	// console.dir(jalgos);
 };
 
 exports.spopulate = function(usernames) {	
@@ -40,10 +48,39 @@ exports.spopulate = function(usernames) {
 	localID = [];
 };
 
-exports.calculateDecisions = function (usernames) {
+exports.calculateDecisions = function (usernames, graph) {
 	usernames.forEach(function(element, index){
 		if (inside(localID, element.identifier)) {
-			element.decision = getRandomDecision();
+			hist = reconstructHistory(graph);
+			for (var i=0, n=jalgos.length; i<n; i++){
+				if (element.identifier == jalgos[i].ind) {
+					console.log("Making decision for: ");
+					console.dir(jalgos[i]);
+					relevantHist = hist.slice(hist.length-jalgos[i].brainSize, hist.length);
+					console.log('relevant history: ' + relevantHist);
+					if (relevantHist.length == jalgos[i].brainSize) {
+
+
+						var idx = parseInt(relevantHist.join(""),2);
+						// console.log("last decision: " + relevantHist[relevantHist.length-1]);
+						var maxIdx = 0;
+						jalgos[i].strategy.forEach(function (element, index){
+							element.updateScore(relevantHist[relevantHist.length-1]);
+							if (element.vscore > jalgos[i].strategy[maxIdx].vscore) {
+								maxIdx = index;
+							}
+							element.makeDecision(idx);
+						});
+						element.decision = desc[jalgos[i].strategy[maxIdx].s[idx]];
+					}
+					else {
+						element.decision = getRandomDecision();
+					}
+					console.log('jalgo decision: ' + element.decision);
+				}				
+			}
+			// console.log("reconstructed history!");
+			// console.dir(hist);
 		}		
 	});
 };
@@ -63,3 +100,64 @@ function getRandomDecision() {
 	if (rnd < 0.5) { return "down"; }
 	else { return "up"; }
 };
+
+function reconstructHistory(graph) {
+	history = [];
+	graph.arr.forEach( function (element, index){
+		if (index == 0) {
+			history.push(Math.round(Math.random()))
+		}
+		else {
+			if ((element - graph.arr[index-1]) > 0) {
+				history.push(0)
+			}
+			else {
+				history.push(1)
+			}
+		}
+	});
+	return history;
+};
+
+function Jalgo(ind, brainSize, S){
+	this.ind = ind;
+	this.S = S;
+	this.brainSize = brainSize;
+	this.strategy = [];
+};
+
+Jalgo.prototype.generateStrategies = function(){
+	for (var i=0; i<this.S; i++) {
+		var newStrategy = new Strategy(this.brainSize);
+		newStrategy.generateStrategy();
+		this.strategy.push(newStrategy);
+	}
+};
+
+function Strategy(brainSize){
+	this.brainSize = brainSize
+	this.s = [];
+	this.vscore = 0;
+	this.decision = 0;
+};
+
+Strategy.prototype.generateStrategy = function () {
+	limit = Math.pow(2, this.brainSize)
+	for (var i=0; i<limit; i++) {
+		this.s.push(Math.round(Math.random()));
+	}
+};
+
+Strategy.prototype.makeDecision = function(idx) {
+	this.decision = this.s[idx];
+	console.log("Strategy " + this + " made decision: " + this.decision);
+};
+
+Strategy.prototype.updateScore = function(correctD) {
+	if (this.decision == correctD) {
+		this.vscore += 1;
+	}
+	else {
+		this.vscore -= 1;
+	}
+}

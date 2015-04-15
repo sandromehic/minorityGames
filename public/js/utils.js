@@ -7,6 +7,20 @@ var colors = {
 
 var localNeigh = [];
 
+function resetRollingCircles() {
+	for (var key in rollingCircles) {
+		for (var i=0; i<6; i++) {
+			rollingCircles[key].addCircle("#ffffff");
+		}
+	}
+};
+
+function resetRollingGraph(rolling) {
+	for (var i=0; i<6; i++) {
+		rolling.addPoint(0, "#f0ad4e");
+	}
+}
+
 function constructNeigh(usernames, mainuserId) {
 
 };
