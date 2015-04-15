@@ -34,3 +34,59 @@ block body
 			.row.jumbotron
 				// h1 Ciao #{username} {{ user }}
 				p Benvenuto nella pagina del classico Minority Game. Il gioco è di natura competitiva e non ha soluzione ottimale, visto che non possono essere soddisfati più della metà dei giocatori allo stesso tempo. Ad ogni turno il giocatore deve prevedere l'andamento del grafico che rappresenta le decisioni della minoranza nei turni precedenti. Il giocatore accumula punti vincendo i singoli round, e vince un round se riesce prevedere con successo l'andamento del grafico.
+
+		div(ng-controller="adminController")
+			div#modal1.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+				.modal-dialog
+					.modal-content
+						.modal-header
+							h4.modal-title 
+								span Ciao #{username}
+						.modal-body
+							p Benvenuto nella pagina del classico Minority Game. Il gioco è di natura competitiva e non ha soluzione ottimale, visto che non possono essere soddisfati più della metà dei giocatori allo stesso tempo. Ad ogni turno il giocatore deve prevedere l'andamento del grafico che rappresenta le decisioni della minoranza nei turni precedenti. Il giocatore accumula punti vincendo i singoli round, e vince un round se riesce prevedere con successo l'andamento del grafico.
+						.modal-footer
+							button.btn.btn-primary(type="button" data-dismiss="modal" data-toggle="modal" data-target="#modal2") Next (1/5)
+
+			div#modal2.modal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+				.modal-dialog.modal-lg
+					.modal-content
+						.modal-header
+							h4.modal-title 
+								span Storia globale
+						.modal-body
+							img(src="/img/graph.png")
+							p Nella parte sinistra dello schermo è visibile la storia globale del gioco, ie. come il grafico effettivamente evolve.
+						.modal-footer
+							button.btn.btn-default(type="button" data-dismiss="modal" data-toggle="modal" data-target="#modal3") Next (2/5)
+			div#modal3.modal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+				.modal-dialog.modal-lg
+					.modal-content
+						.modal-header
+							h4.modal-title 
+								span Storia locale
+						.modal-body
+							img(src="/img/neighbourhood.png")
+							p Nella parte sinistra dello schermo è visibile la storia globale del gioco, ie. come il grafico effettivamente evolve.
+						.modal-footer
+							button.btn.btn-default(type="button" data-dismiss="modal" data-toggle="modal" data-target="#modal4") Next (3/5)
+			div#modal4.modal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+				.modal-dialog.modal-lg
+					.modal-content
+						.modal-header
+							h4.modal-title 
+								span Punteggio, decisioni e tempo
+						.modal-body
+							img(src="/img/bottombar.png")
+							p Nella parte sinistra dello schermo è visibile la storia globale del gioco, ie. come il grafico effettivamente evolve.
+						.modal-footer
+							button.btn.btn-default(type="button" data-dismiss="modal" data-toggle="modal" data-target="#modal5") Next (4/5)
+			div#modal5.modal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+				.modal-dialog.modal-lg
+					.modal-content
+						.modal-header
+							h4.modal-title 
+								span Comincia a giocare
+						.modal-body
+							p Nella parte sinistra dello schermo è visibile la storia globale del gioco, ie. come il grafico effettivamente evolve.
+						.modal-footer
+							button.btn.btn-default(type="button" data-dismiss="modal" ng-click="startRounds()") Start (5/5) 

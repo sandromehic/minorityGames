@@ -28,16 +28,16 @@ var roundTimeout;
 var roundStartedAt;
 var refreshTime;
 
-function startIntervals(socket, data) {
+function startIntervals(socket, data, io) {
 	// refreshTime = refreshTime - 1;
 	refreshTime = data.shift();
 	if (refreshTime > 0) {
-		sendNewData(socket, refreshTime);
+		sendNewData(socket, refreshTime, io);
 		clearTimeout(roundTimeout);
 		// set time of start to be able to calculate remaining
 		roundStartedAt = (new Date()).getTime();
 		roundTimeout = setTimeout( function() {
-			startIntervals(socket, data);
+			startIntervals(socket, data, io);
 		}, refreshTime * 1000);		
 	}
 	else {
@@ -45,18 +45,19 @@ function startIntervals(socket, data) {
 	}
 };
 
-function startRounds(socket, highDuration, lowDuration, rounds) {
+function startRounds(socket, highDuration, lowDuration, rounds, io) {
 	resetValues();
 	graph.session = generateUserId();
-	socket.broadcast.emit('reset', graph);
+	// socket.broadcast.emit('reset', graph);
+	io.sockets.emit('reset', graph);
 	var r = getRoundsDuration(highDuration, lowDuration, rounds);
 	setTimeout(function() {
-		startIntervals(socket, r);
+		startIntervals(socket, r, io);
 	}, 5000);
 };
 
 // send new Data to clients and initialize new round
-function sendNewData(socket, time) {
+function sendNewData(socket, time, io) {
 	var data = calculateLastRound();
 	// socket.broadcast.emit('newRound', time);
 	// socket.broadcast.emit('graphNewPoint', data.point);
@@ -64,7 +65,8 @@ function sendNewData(socket, time) {
 	// socket.broadcast.emit('newNeighbourhood', data.usernames);
 	data.time = time;
 	// db.saveRound(graph, usernames);
-	socket.broadcast.emit('newRound', data);
+	// socket.broadcast.emit('newRound', data);
+	io.sockets.emit('newRound', data);
 };
 
 // calculate total minority, new graph point, neighbourhood and other
@@ -176,17 +178,17 @@ exports.launch = function(io) {
 
 		// ADMIN messages
 		socket.on('startRounds', function (data) {
-			console.log('Starting new set of rounds (issued by admin) with following data:');
-			console.log('number of rounds:', data.rounds);
-			console.log('high duration of round:', data.high);
-			console.log('low duration of round:', data.low);
-			console.log('number of jalgo users:', data.jalgos);
+			// console.log('Starting new set of rounds with following data:');
+			// console.log('number of rounds:', data.rounds);
+			// console.log('high duration of round:', data.high);
+			// console.log('low duration of round:', data.low);
+			// console.log('number of jalgo users:', data.jalgos);
 			// remove all the jalgos from usernames
 			jalgo.spopulate(usernames);
 			// add new number of jalgos
 			jalgo.populate(usernames, data.jalgos);
 			usernames = shuffle(usernames);
-			startRounds(socket, data.high, data.low, data.rounds);
+			startRounds(socket, data.high, data.low, data.rounds, io);
 		});
 		socket.on('stopRounds', function (data) {
 			if (roundTimeout) {
