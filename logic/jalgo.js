@@ -21,7 +21,7 @@ exports.populate = function(usernames, quan) {
 			"username" : names[currentIndex],
 			"history" : []
 		});
-		var newJalgo = new Jalgo(ind, 3, 2);
+		var newJalgo = new Jalgo(ind, 5, 2);
 		newJalgo.generateStrategies();
 		jalgos.push(newJalgo);
 		localID.push(ind);
@@ -41,8 +41,8 @@ exports.spopulate = function(usernames) {
 	for(var i=removeID.length-1; i>=0; i--) {
 		usernames.splice(removeID[i],1);
 	}
-	console.log('done with removing jalgos from usernames array');
-	console.dir(usernames);
+	// console.log('done with removing jalgos from usernames array');
+	// console.dir(usernames);
 	// reset values
 	currentIndex = 0;
 	localID = [];
@@ -54,10 +54,10 @@ exports.calculateDecisions = function (usernames, graph) {
 			hist = reconstructHistory(graph);
 			for (var i=0, n=jalgos.length; i<n; i++){
 				if (element.identifier == jalgos[i].ind) {
-					console.log("Making decision for: ");
-					console.dir(jalgos[i]);
+					// console.log("Making decision for: ");
+					// console.dir(jalgos[i]);
 					relevantHist = hist.slice(hist.length-jalgos[i].brainSize, hist.length);
-					console.log('relevant history: ' + relevantHist);
+					// console.log('relevant history: ' + relevantHist);
 					if (relevantHist.length == jalgos[i].brainSize) {
 
 
@@ -76,7 +76,7 @@ exports.calculateDecisions = function (usernames, graph) {
 					else {
 						element.decision = getRandomDecision();
 					}
-					console.log('jalgo decision: ' + element.decision);
+					// console.log('jalgo decision: ' + element.decision);
 				}				
 			}
 			// console.log("reconstructed history!");
@@ -150,7 +150,7 @@ Strategy.prototype.generateStrategy = function () {
 
 Strategy.prototype.makeDecision = function(idx) {
 	this.decision = this.s[idx];
-	console.log("Strategy " + this + " made decision: " + this.decision);
+	// console.log("Strategy " + this + " made decision: " + this.decision);
 };
 
 Strategy.prototype.updateScore = function(correctD) {

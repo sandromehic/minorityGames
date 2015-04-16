@@ -66,7 +66,7 @@ block body
 								span Storia locale
 						.modal-body
 							img(src="/img/neighbourhood.png")
-							p Nella parte sinistra dello schermo è visibile la storia globale del gioco, ie. come il grafico effettivamente evolve.
+							p Nella parte destra dello schermo è visibile la storia locale del gioco, puoi vedere solo un certo numero delle persone e le loro decisioni nel passato. Questa informazione ti dovrebbe aiutare per prendere la tua decisione a livello globale.
 						.modal-footer
 							button.btn.btn-default(type="button" data-dismiss="modal" data-toggle="modal" data-target="#modal4") Next (3/5)
 			div#modal4.modal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
@@ -77,7 +77,7 @@ block body
 								span Punteggio, decisioni e tempo
 						.modal-body
 							img(src="/img/bottombar.png")
-							p Nella parte sinistra dello schermo è visibile la storia globale del gioco, ie. come il grafico effettivamente evolve.
+							p Nella parte bassa dello schermo puoi vedere il tuo punteggio e la classifica. Nella parte centrale ci sono due bottoni che devi utilizzare per fare la tua decisione, mentre a destra puoi vedere il numero di round al quale sei arrivato e quanto tempo manca al prossimo round.
 						.modal-footer
 							button.btn.btn-default(type="button" data-dismiss="modal" data-toggle="modal" data-target="#modal5") Next (4/5)
 			div#modal5.modal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
@@ -87,6 +87,22 @@ block body
 							h4.modal-title 
 								span Comincia a giocare
 						.modal-body
-							p Nella parte sinistra dello schermo è visibile la storia globale del gioco, ie. come il grafico effettivamente evolve.
+							p Il gioco comincia quando premi il bottone in basso a destra. Il primo round comincia dopo 5 secondi e dovresti prendere la tua prima decisione a caso. Dopo questa puoi iniziare a seguire i vari comportamenti dei tuoi vicini e dello storico globale per cercare di stare nella minoranza, individuando il giusto andamento del grafico. I round durano circa 7/8 secondi ciascuno. 
 						.modal-footer
 							button.btn.btn-default(type="button" data-dismiss="modal" ng-click="startRounds()") Start (5/5) 
+
+			div#modal6.modal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+				.modal-dialog.modal-lg
+					.modal-content
+						.modal-header
+							h4.modal-title 
+								span Congratulazioni
+						.modal-body
+							p Il gioco è finito. Sei arrivato {{ rank }} su {{ rankTotal }}, congratulazioni! Ecco la classifica finale (nel giallo puoi vedere evidenziato il tuo vicinato):
+							div(ng-repeat="jalgo in usernames | orderBy: 'rank'") 
+								div(ng-if="jalgo.neigh == true") 
+									mark
+										strong {{ jalgo.rank }}. {{ jalgo.username }} (punti: {{ jalgo.score }})
+								div(ng-if="jalgo.neigh != true") {{ jalgo.rank }}. {{ jalgo.username }} (punti: {{ jalgo.score }})
+						.modal-footer
+							button.btn.btn-default(type="button" data-dismiss="modal" ng-click="startRounds()") Gioca di nuovo!

@@ -17,7 +17,7 @@ function resetValues() {
 	graph.value = 0;
 	graph.arr = [];
 	usernames.forEach(function(element, index){
-		element.decision = "boh";
+		element.decision = "up";
 		element.history = [];
 		element.score = 0;
 		element.rank = 0;
@@ -32,16 +32,24 @@ function startIntervals(socket, data, io) {
 	// refreshTime = refreshTime - 1;
 	refreshTime = data.shift();
 	if (refreshTime > 0) {
+		var t = 1000;
 		sendNewData(socket, refreshTime, io);
 		clearTimeout(roundTimeout);
 		// set time of start to be able to calculate remaining
 		roundStartedAt = (new Date()).getTime();
+
+		// if it's the last round send data
+		console.log("Rounds left: " + data.length);
+		if (data.length == 0) {
+			t = 100;
+		}
 		roundTimeout = setTimeout( function() {
 			startIntervals(socket, data, io);
-		}, refreshTime * 1000);		
+		}, refreshTime * t);		
 	}
 	else {
 		console.log('Rounds are over!');
+		io.sockets.emit('endRounds', usernames)
 	}
 };
 
@@ -132,7 +140,7 @@ exports.launch = function(io) {
 				usernames.push({ 
 					"identifier" : socket.identifier, 
 					"username" : username,
-					"decision" : "boh",
+					"decision" : "up",
 					"history" : [],
 					"score" : 0,
 					"rank" : usernames.length

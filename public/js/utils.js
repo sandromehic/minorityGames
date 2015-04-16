@@ -6,6 +6,7 @@ var colors = {
 };
 
 var localNeigh = [];
+var mainUserID = '';
 
 function resetRollingCircles() {
 	for (var key in rollingCircles) {
@@ -30,6 +31,7 @@ function updateNeigh(usernames, mainuserId, newguyId) {
 };
 
 function spliceAndDice(data, mainuserId) {
+	mainUserID = mainuserId;
 	var len = data.length;
 	// console.log('inside spliceAndDice:');
 	// console.log('mainuserId', mainuserId);

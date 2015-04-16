@@ -42,3 +42,7 @@ http.listen(port, function (socket) {
 	console.log('Server listening on port ' + port);
 });
 
+// var http2 = require('http').Server(app);
+// http.listen(8080, function (socket) {
+// 	console.log('Server listening on port ' + 8080);
+// });

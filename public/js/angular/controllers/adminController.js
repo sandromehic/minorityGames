@@ -11,8 +11,23 @@ minorityApp.controller('adminController', function ($scope, socket) {
 		socket.emit('stopRounds', true);
 	}
 
-	$scope.nrounds = 25;
+	socket.on('endRounds', function (usernames) {
+		console.log('endRounds recieved!');
+		// console.dir(usernames);
+		// $scope.usernames = usernames;
+		neighData = spliceAndDice(usernames, mainUserID);
+		usernames.forEach(function (element, index){
+			if (include(neighData, element)) {
+				usernames[index].neigh = true;
+			}
+		});
+
+		$scope.usernames = usernames;
+		$('#modal6').modal(); 
+	});
+
+	$scope.nrounds = 2;
 	$scope.hduration = 10;
 	$scope.lduration = 5;
-	$scope.jalgos = 15;
+	$scope.jalgos = 50;
 });

@@ -12,6 +12,11 @@ minorityApp.controller('minorityController',
 			socket.emit('getUpdateState', userId);
 		});
 
+		socket.on('endRounds', function (usernames) {
+			$scope.timer = 0;
+			$interval.cancel(endRound);
+		});
+
 		// when connected we get state of graph and neighbourhood to draw the UI
 		socket.on('updateState', function (data) {
 			// data: userid, graph and usernames
